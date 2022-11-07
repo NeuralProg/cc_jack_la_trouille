@@ -2,6 +2,8 @@ PImage background;
 ArrayList<Orb> my_orbs;
 
 long time_counter;
+int score = 0;
+int max_score = 0;
 
 //__Main__():
 void setup()
@@ -25,10 +27,27 @@ void draw()
       my_orbs.get(i).display();
     }
     else {
-      my_orbs.remove(i);
-      i--;
+      if (my_orbs.get(i).is_alive() == 1){
+        if (score > 0){
+          score -= 1;}
+        else {
+          exit();
+        }}
+      else{
+         score += 1;
+      } 
+     my_orbs.remove(i);
+     i--;
     }
   }
+  
+  textSize(60);
+  text(str(score), 40, 60);
+  if (score > max_score) {
+    max_score = score;
+  }
+  textSize(40);
+  text("Max score " + str(max_score), 40, 100);
 }
 
 void spawn() {
@@ -42,7 +61,7 @@ void mousePressed()
 {
   if (mouseButton == LEFT) {
     for (int i = 0; i < my_orbs.size(); i += 1) {
-      my_orbs.get(...).click();
+      my_orbs.get(i).click();
     }
   }
 }
